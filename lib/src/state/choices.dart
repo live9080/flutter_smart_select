@@ -42,6 +42,8 @@ class S2Choices<T> extends ChangeNotifier {
   /// Error message occurs while loading the choice items
   Error? error;
 
+  bool _disposed = false;
+
   /// Default constructor
   S2Choices({
     List<S2Choice<T>>? items,
@@ -151,9 +153,9 @@ class S2Choices<T> extends ChangeNotifier {
   List<S2Choice<T>> filter(List<S2Choice<T>> choices, String? query) {
     return query != null
         ? choices
-            .where((S2Choice<T> choice) => choice.contains(query))
-            .toList()
-            .cast<S2Choice<T>>()
+        .where((S2Choice<T> choice) => choice.contains(query))
+        .toList()
+        .cast<S2Choice<T>>()
         : choices;
   }
 
@@ -168,10 +170,10 @@ class S2Choices<T> extends ChangeNotifier {
 
     final List<S2Group<T>> groups = groupKeys
         .map((String groupKey) => S2Group<T>(
-              name: groupKey,
-              choices: groupChoices(groupKey),
-              headerStyle: config.headerStyle,
-            ))
+      name: groupKey,
+      choices: groupChoices(groupKey),
+      headerStyle: config.headerStyle,
+    ))
         .toList()
         .cast<S2Group<T>>();
 
@@ -193,5 +195,18 @@ class S2Choices<T> extends ChangeNotifier {
   /// Returns a list of group choice items
   List<S2Choice<T>> groupChoices(String key) {
     return items!.where((S2Choice<T> choice) => choice.group == key).toList();
+  }
+
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
+  }
+
+  @override
+  void notifyListeners() {
+    if (!_disposed) {
+      super.notifyListeners();
+    }
   }
 }

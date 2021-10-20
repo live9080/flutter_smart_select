@@ -28,18 +28,27 @@ class S2ChoicesList<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget result = NotificationListener<ScrollNotification>(
-      onNotification: (notification) => false,
-      child: Scrollbar(
-        child: config.isWrapLayout
-            ? _listWrap(context)
-            : config.isGridLayout
-                ? _listGrid()
-                : config.useDivider
-                    ? _listSeparated()
-                    : _listDefault(),
-      ),
+    Widget result = Container(
+      child: config.isWrapLayout
+          ? _listWrap(context)
+          : config.isGridLayout
+              ? _listGrid()
+              : config.useDivider
+                  ? _listSeparated()
+                  : _listDefault(),
     );
+    // Widget result = NotificationListener<ScrollNotification>(
+    //   onNotification: (notification) => false,
+    //   child: Scrollbar(
+    //     child: config.isWrapLayout
+    //         ? _listWrap(context)
+    //         : config.isGridLayout
+    //             ? _listGrid()
+    //             : config.useDivider
+    //                 ? _listSeparated()
+    //                 : _listDefault(),
+    //   ),
+    // );
 
     return config.direction == Axis.horizontal
         ? Wrap(children: <Widget>[result])

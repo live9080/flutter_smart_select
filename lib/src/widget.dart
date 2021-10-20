@@ -1344,7 +1344,9 @@ abstract class S2State<T> extends State<SmartSelect<T>> {
               // hide filter bar
               if (filter?.activated == true) filter?.hide(modalContext);
               // confirm the value and close modal
-              if (!modalConfig.useConfirm) closeModal(confirmed: true);
+              Future.delayed(const Duration(milliseconds: 100), () {
+                if (!modalConfig.useConfirm) closeModal(confirmed: true);
+              });
             }
           },
           style: defaultChoiceStyle.merge(choiceStyle).merge(choice.style),

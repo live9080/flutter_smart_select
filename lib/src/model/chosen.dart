@@ -203,7 +203,7 @@ class S2MultiChosen<T> extends S2ChosenData<T> with S2MultiChosenData<T> {
   }
 }
 
-abstract class S2ChosenNotifier<T> extends ChangeNotifier with S2ChosenData<T> {
+abstract class S2ChosenNotifier<T> extends S2ChosenData<T> with ChangeNotifier {
   /// A Function used to validate the selection(s)
   covariant var validation;
 
